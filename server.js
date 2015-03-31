@@ -17,7 +17,7 @@ app.use(express.static(__dirname + '/public'));
 if (env === 'development') {
     mongoose.connect('mongodb://localhost/mygame');
 } else {
-    mongoose.connect('mongodb://alex:mygame@ds039311.mongolab.com:39311/mygame');
+    mongoose.connect('mongodb://alex:mygame@ds059471.mongolab.com:59471/heroku_app35411096');
 }
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error...'));
