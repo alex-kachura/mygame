@@ -6,9 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "0.12.x",
+    "npm": "1.4.x"
+  },
   "author": "Alex Kachura",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.12.3"
+    "jade": "^1.9.2",
+    "express": "^4.12.3",
+    "mongoose": "^4.0.1"
   }
 }
