@@ -3,12 +3,9 @@ html
   head
     base(href="/")
     link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-    link(rel="stylesheet", href="/vendor/bootstrap/dist/css/bootstrap.css")
-    link(rel="stylesheet", href="/vendor/toastr/toastr.css")
-    link(rel="stylesheet", href="/css/styles.css")
+    include includes/head_styles
     include includes/head_scripts
   body(ng-app='app')
-    section.content
-      div(ng-view)
+    div(ng-view)
     h2= mongoMessage
     include includes/body_scripts

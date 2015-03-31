@@ -1,6 +1,4 @@
 var express = require('express'),
-    //logger = require('morgan'),
-    //bodyParser = require('body-parser'),
     mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -9,9 +7,6 @@ var app = express();
 
 app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
-//app.use(logger('dev'));
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
 
 if (env === 'development') {
@@ -36,8 +31,8 @@ app.get('/*', function(req, res, next){
     next();
 });
 
-app.get('/partials/:partialPath', function(req, res) {
-    res.render('partials/' + req.params.partialPath);
+app.get('/parts/*', function(req, res) {
+    res.render('../../public/app/' + req.params[0]);
 });
 
 app.get('*', function(req, res) {
