@@ -1,5 +1,5 @@
 var express = require('express'),
-    logger = require('morgan'),
+    //logger = require('morgan'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose');
 
@@ -9,7 +9,7 @@ var app = express();
 
 app.set('views', __dirname + '/server/views');
 app.set('view engine', 'jade');
-app.use(logger('dev'));
+//app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
