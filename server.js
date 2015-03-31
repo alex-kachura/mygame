@@ -20,7 +20,7 @@ if (env === 'development') {
     mongoose.connect('mongodb://alex:mygame@ds039311.mongolab.com:39311/mygame');
 }
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'));
+//db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback() {
     console.log('mygame db opened');
 });
