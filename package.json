@@ -12,6 +12,7 @@
   },
   "author": "Alex Kachura",
   "license": "ISC",
+  "repository": "git@heroku.com:guarded-spire-3289.git",
   "dependencies": {
     "express": "^4.12.3",
     "jade": "^1.9.2",
