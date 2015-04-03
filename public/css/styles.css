@@ -5,3 +5,11 @@
 .content {
     margin-top: 100px;
 }
+
+.toast-top-right {
+    top: 70px;
+}
+
+.toast-success {
+    background-color: #05695e;
+}

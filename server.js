@@ -1,48 +1,46 @@
 var express = require('express'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
     mongoose = require('mongoose');
 
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-app.set('views', __dirname + '/server/views');
-app.set('view engine', 'jade');
-app.use(express.static(__dirname + '/public'));
+var config = require('./server/config/config')[env];
 
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost/mygame');
-} else {
-    mongoose.connect('mongodb://heroku_app35411096:h4tohubtv7nq6f2nn61tuq3v8v@ds059471.mongolab.com:59471/heroku_app35411096');
-}
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'));
-db.once('open', function callback() {
-    console.log('mygame db opened');
-});
-var messageSchema = mongoose.Schema({message: String});
-var Message = mongoose.model('Message', messageSchema);
-var mongoMessage;
-Message.findOne().exec(function(err, messageDoc) {
-    mongoMessage = messageDoc.message;
-});
+require('./server/config/express')(app, config);
 
-app.get('/*', function(req, res, next){
-    res.setHeader('Last-Modified', (new Date()).toUTCString());
-    next();
+require('./server/config/mongoose')(config);
+
+var User = mongoose.model('User');
+passport.use(new LocalStrategy(function(username, password, done) {
+    User.findOne({username: username}).exec(function(err, user) {
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
+    });
+}));
+
+passport.serializeUser(function(user, done) {
+    if (user) {
+        done(null, user._id);
+    }
 });
 
-app.get('/parts/*', function(req, res) {
-    res.render('../../public/app/' + req.params[0]);
-});
-
-app.get('*', function(req, res) {
-    res.render('index', {
-        mongoMessage: mongoMessage
+passport.deserializeUser(function(id, done) {
+    User.findOne({_id: id}).exec(function(err, user) {
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
     });
 });
 
+require('./server/config/routes')(app);
 
-var port = process.env.PORT || 3030;
-app.listen(port);
-
-console.log('Listening to port ' + port + '...');
+app.listen(config.port);
+console.log('Listening to port ' + config.port + '...');
