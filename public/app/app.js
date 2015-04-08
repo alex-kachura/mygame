@@ -3,23 +3,19 @@ angular.module('app', ['ngResource', 'ngRoute']);
 angular.module('app')
     .config(function($injector) {
         var $routeProvider = $injector.get('$routeProvider'),
-            $locationProvider = $injector.get('$locationProvider');
+            $locationProvider = $injector.get('$locationProvider'),
+            routeRoleChecks = {
+                admin: { auth: function (mvIdentity, $q) {
+                    return mvAuth.authorizeCurrentUserForRoute('admin');
+                }}
+            };
 
         $locationProvider.html5Mode(true);
         $routeProvider
             .when('/', {templateUrl: '/parts/main/home', controller: 'mvHomeCtrl'})
             .when('/game', {templateUrl: '/parts/main/game', controller: 'mvGameCtrl'})
-            .when('/admin/users', {templateUrl: '/parts/admin/users', controller: 'mvUserListCtrl',
-                resolve: {
-                    auth: function(mvIdentity, $q) {
-                        if (mvIdentity.currentUser && mvIdentity.currentUser.roles.indexOf('admin') + 1) {
-                            return true;
-                        } else {
-                            return $q.reject('not authorized');
-                        }
-                    }
-                }})
             .when('/about', {templateUrl: '/parts/main/about'})
+            .when('/admin/users', {templateUrl: '/parts/admin/users', controller: 'mvUserListCtrl', resolve: routeRoleChecks.admin})
             .otherwise('/')
     });
 
