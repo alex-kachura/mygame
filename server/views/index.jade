@@ -7,5 +7,6 @@ html
     include includes/head_scripts
   body(ng-app='app')
     include includes/current_user
+    div(ng-include="'/parts/common/navbar'")
     div(ng-view)
     include includes/body_scripts
