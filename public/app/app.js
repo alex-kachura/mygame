@@ -4,8 +4,11 @@ angular.module('app')
     .config(function($injector) {
         var $routeProvider = $injector.get('$routeProvider'),
             $locationProvider = $injector.get('$locationProvider'),
+            mvIdentity = $injector.get('mvIdentity'),
+            mvAuth = $injector.get('mvAuth'),
+            $q = $injector.get('$q'),
             routeRoleChecks = {
-                admin: { auth: function (mvIdentity, $q) {
+                admin: {auth: function (mvIdentity, $q) {
                     return mvAuth.authorizeCurrentUserForRoute('admin');
                 }}
             };
