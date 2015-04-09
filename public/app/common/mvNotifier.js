@@ -1,10 +1,14 @@
-angular.module('app').value('mvToastr', toastr);
+angular.module('app')
 
-angular.module('app').factory('mvNotifier', function(mvToastr) {
-    return {
-        notify: function(msg) {
-            mvToastr.success(msg);
-            console.log('%c' + msg, 'color:#05695e');
+    .value('mvToastr', toastr)
+
+    .factory('mvNotifier', ['$injector', function($injector) {
+        var mvToastr = $injector.get('mvToastr');
+
+        return {
+            notify: function(msg) {
+                mvToastr.success(msg);
+                console.log('%c' + msg, 'color:#05695e');
+            }
         }
-    }
-});
+    }]);

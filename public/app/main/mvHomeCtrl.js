@@ -1,5 +1,7 @@
 angular.module('app')
-    .controller('mvHomeCtrl', ['$scope',
-        function($scope) {
-            $scope.myVar = "Main content";
-        }]);
+
+    .controller('mvHomeCtrl', ['$injector', '$scope', function($injector, $scope) {
+        //var mvUser = $injector.get('mvUser');
+
+        $scope.myVar = "Main content";
+    }]);

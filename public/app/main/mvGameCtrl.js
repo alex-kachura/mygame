@@ -1,5 +1,7 @@
 angular.module('app')
-    .controller('mvGameCtrl', ['$scope',
-        function($scope) {
 
-        }]);
+    .controller('mvGameCtrl', ['$injector', '$scope', function($injector, $scope) {
+        //var mvUser = $injector.get('mvUser');
+
+        $scope.myVar = "Game content";
+    }]);

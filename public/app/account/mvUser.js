@@ -1,9 +1,12 @@
-angular.module('app').factory('mvUser', function($resource) {
-    var UserResource = $resource('/api/users/:id', {_id: '@id'});
+angular.module('app')
 
-    UserResource.prototype.isAdmin = function() {
-        return this.roles && this.roles.indexOf('admin') > -1;
-    };
+    .factory('mvUser', ['$injector', function($injector) {
+        var $resource = $injector.get('$resource'),
+            UserResource = $resource('/api/users/:id', {_id: '@id'});
 
-    return UserResource;
-});
+        UserResource.prototype.isAdmin = function() {
+            return this.roles && this.roles.indexOf('admin') > -1;
+        };
+
+        return UserResource;
+    }]);
