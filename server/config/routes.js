@@ -1,6 +1,5 @@
 var auth = require('./auth'),
-    mongoose = require('mongoose'),
-    User = mongoose.model('User');
+    users = require('../controllers/users');
 
 module.exports = function(app) {
     app.get('/*', function(req, res, next){
@@ -8,11 +7,11 @@ module.exports = function(app) {
         next();
     });
 
-    app.get('/api/users', auth.requiresRole('admin'), function(req, res) {
-        User.find({}).exec(function(err, collection) {
-            res.send(collection);
-        })
-    });
+    app.get('/api/users', auth.requiresRole('admin'), users.getUsers);
+
+    app.post('/api/users', users.createUser);
+
+    app.put('/api/users', users.updateUser);
 
     app.get('/parts/*', function(req, res) {
         res.render('../../public/app/' + req.params[0]);

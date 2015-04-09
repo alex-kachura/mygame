@@ -1,5 +1,4 @@
 angular.module('app')
-
     .controller('mvLoginCtrl', ['$injector', '$scope', function($injector, $scope) {
         var $http = $injector.get('$http'),
             mvNotifier = $injector.get('mvNotifier'),
@@ -9,7 +8,7 @@ angular.module('app')
         $scope.signin = function(username, password) {
             mvAuth.authenticateUser(username, password).then(function(success) {
                 if (success) {
-                    mvNotifier.notify('You have successfully logged in');
+                    mvNotifier.notify('You have successfully logged in!');
                 } else {
                     mvNotifier.notify('Incorrect username/password combination');
                 }
@@ -20,8 +19,8 @@ angular.module('app')
             mvAuth.logoutUser().then(function() {
                 $scope.username = "";
                 $scope.password = "";
-                mvNotifier.notify('You have successfully signed out');
+                mvNotifier.notify('You have signed out');
                 $location.path('/');
             })
-        }
+        };
     }]);

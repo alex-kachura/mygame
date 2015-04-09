@@ -1,13 +1,11 @@
 .navbar.navbar-inverse.navbar-fixed-top
   .container
     .navbar-header
-      a.navbar-brand(href="/") MyGame
+      a.navbar-brand(href="/") The Walking Skeleton
     .navbar-collapse.collapse
       ul.nav.navbar-nav
         li
           a(href="/") Home
         li(ng-show="identity.isAuthenticated()")
           a(href="/game") Game
-        li
-          a(href="/about") About
       div(ng-include="'/parts/account/navbar-login'")

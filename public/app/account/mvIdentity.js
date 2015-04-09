@@ -1,5 +1,4 @@
 angular.module('app')
-
     .factory('mvIdentity', ['$injector', function($injector) {
         var $window = $injector.get('$window'),
             mvUser = $injector.get('mvUser'),
